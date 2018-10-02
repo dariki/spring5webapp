@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Book {
@@ -19,6 +20,8 @@ public class Book {
 	private Long Id;
 	private String title;
 	private String isbn;
+	
+	@OneToOne
 	private Publisher publisher;
 
 	@ManyToMany
@@ -77,5 +80,37 @@ public class Book {
 	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (Id == null) {
+			if (other.Id != null)
+				return false;
+		} else if (!Id.equals(other.Id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [Id=" + Id + ", title=" + title + ", isbn=" + isbn + ", publisher=" + publisher + ", authors="
+				+ authors + "]";
+	}
+	
 
 }
