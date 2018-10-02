@@ -19,9 +19,5 @@ public class BookController {
 	public String getBooks(Model model ) {
 		model.addAttribute("books", bookRepository.findAll());
 		return "books";
-		
 	}
-	
-	
-
 }
